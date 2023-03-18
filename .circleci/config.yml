@@ -6,6 +6,20 @@ executors:
       - image: gradle:7.0.1-jdk11
 
 jobs:
+  set-env:
+    executor: build-executor
+    steps:
+      - run: export USER=user1
+      - run:
+          command: echo "User is " $USER
+
+  use-env:
+    executor: build-executor
+    steps:
+      - run:
+          command:
+            echo "User is: " $USER
+
   test:
     executor: build-executor
     steps:
@@ -15,4 +29,6 @@ jobs:
 workflows:
   build-deploy:
     jobs:
+      - set-env
+      - use-env
       - test
