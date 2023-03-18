@@ -4,6 +4,7 @@ executors:
   build-executor:
     machine:
       image: ubuntu-2004:2023.02.1
+    working_directory: /app
 
 jobs:
   set-env:
@@ -12,25 +13,35 @@ jobs:
       - run:
           command: |
             pwd
-            touch env_vars          
-            echo 'export USER=user1' >> ./env_vars
-            echo 'export NAME=AFTAB' >> ./env_vars
-            cat ./env_vars >> "$BASH_ENV"
+            mkdir envs
+            touch ./envs/env_vars          
+            echo 'export USER=user1' >> ./envs/env_vars
+            echo 'export NAME=AFTAB' >> ./envs/env_vars
+            cat ./envs/env_vars >> "$BASH_ENV"
             source "$BASH_ENV"
       - run:
           command: |
             pwd
-            cat ./env_vars
+            cat ./envs/env_vars
             echo "User is" "$USER"
             echo "Name is" "$NAME"
+      - persist_to_workspace:
+          root: envs
+          paths:
+            - env_vars
 
   use-env:
     executor: build-executor
     steps:
+      - attach_workspace:
+          at: /tmp/envs
       - run:
           command: |
             pwd
-            cat ./env_vars
+            ls -ltrh
+            cat ./envs/env_vars
+            cat ./envs/env_vars >> "$BASH_ENV"
+            source "$BASH_ENV"
             echo "User is" "$USER"
             echo "Name is" "$NAME"
 
