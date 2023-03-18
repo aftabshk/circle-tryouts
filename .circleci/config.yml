@@ -2,6 +2,8 @@ version: 2.1
 
 jobs:
   test:
+    machine:
+      image: ubuntu-2204:2023.02.1
     steps:
       - checkout
       - run: ls -ltrh
