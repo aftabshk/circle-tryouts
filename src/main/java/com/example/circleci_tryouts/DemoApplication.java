@@ -1,4 +1,4 @@
-package com.example.webfluxapp;
+package com.example.circleci_tryouts;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

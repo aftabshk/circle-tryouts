@@ -1,4 +1,4 @@
-package com.example.webfluxapp.controller;
+package com.example.circleci_tryouts.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
