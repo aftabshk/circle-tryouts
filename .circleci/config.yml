@@ -5,6 +5,8 @@ jobs:
     docker:
       - image: gradle:7.0.1-jdk11
     steps:
+      - checkout
+      - run: ls -ltrh
       - run: gradle clean test
 
 
