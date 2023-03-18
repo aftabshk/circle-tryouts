@@ -9,16 +9,25 @@ jobs:
   set-env:
     executor: build-executor
     steps:
-      - run: export USER=user1
       - run:
-          command: echo "User is " $USER
+          command: |
+            echo 'export USER=user1' >> "$BASH_ENV"
+            export ADMIN=aftab
+            echo "User is" "$USER"
+            echo "Admin is" "$ADMIN"
+            source "$BASH_ENV"
+      - run:
+          command: |
+            echo "User is" "$USER"
+            echo "Admin is" "$ADMIN"
 
   use-env:
     executor: build-executor
     steps:
       - run:
-          command:
-            echo "User is " $USER
+          command: |
+            echo "User is" "$USER"
+            echo "Admin is" "$ADMIN"
 
   test:
     executor: build-executor
@@ -30,5 +39,7 @@ workflows:
   build-deploy:
     jobs:
       - set-env
-      - use-env
+      - use-env:
+          requires:
+            - set-env
       - test
