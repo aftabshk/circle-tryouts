@@ -16,9 +16,8 @@ jobs:
             export ADMIN=aftab
             echo "Admin is" "$ADMIN"
             source "$BASH_ENV"
-            source ~/.bashrc
             echo "User is" "$USER"
-            echo "Name is" "$NAME"
+            source ~/.bashrc
       - run:
           command: |
             echo "User is" "$USER"
@@ -33,6 +32,7 @@ jobs:
             echo "User is" "$USER"
             echo "Admin is" "$ADMIN"
             echo "Name is" "$NAME"
+
 
   test:
     executor: build-executor
