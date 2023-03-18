@@ -35,7 +35,7 @@ jobs:
     executor: build-executor
     steps:
       - attach_workspace:
-          at: ./app/envs
+          at: ./envs
       - run:
           command: |
             pwd
