@@ -14,8 +14,9 @@ jobs:
           command: |
             pwd
             mkdir envs
+            echo "$USER"
             touch ./envs/env_vars          
-            echo 'export USER=user1' >> ./envs/env_vars
+            echo 'export CU_USER=user1' >> ./envs/env_vars
             echo 'export NAME=AFTAB' >> ./envs/env_vars
             cat ./envs/env_vars >> "$BASH_ENV"
             source "$BASH_ENV"
@@ -23,7 +24,7 @@ jobs:
           command: |
             pwd
             cat ./envs/env_vars
-            echo "User is" "$USER"
+            echo "User is" "$CU_USER"
             echo "Name is" "$NAME"
       - persist_to_workspace:
           root: envs
@@ -38,16 +39,21 @@ jobs:
       - run:
           command: |
             pwd
-            ls -ltrh
+            echo "$USER"
+            ls -R
             cat ./envs/env_vars
             cat ./envs/env_vars >> "$BASH_ENV"
             source "$BASH_ENV"
-            echo "User is" "$USER"
+            echo "User is" "$CU_USER"
             echo "Name is" "$NAME"
 
   test:
     executor: build-executor
     steps:
+      - run: |
+          pwd
+          echo "$USER"
+          ls -R
       - checkout
       - run: gradle clean test
 
