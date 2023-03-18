@@ -1,0 +1,14 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: gradle:7.0.1-jdk11
+    steps:
+      - run: ./gradlew clean test
+
+
+workflows:
+  build-deploy:
+    jobs:
+      - test
