@@ -4,7 +4,7 @@ executors:
   build-executor:
     machine:
       image: ubuntu-2004:2023.02.1
-    working_directory: app
+    working_directory: ~/app
 
 jobs:
   set-env:
