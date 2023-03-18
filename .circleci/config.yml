@@ -2,8 +2,8 @@ version: 2.1
 
 executors:
   build-executor:
-    docker:
-      - image: gradle:7.0.1-jdk11
+    machine:
+      image: ubuntu-2004:2023.02.1
 
 jobs:
   set-env:
