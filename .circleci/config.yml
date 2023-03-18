@@ -1,14 +1,16 @@
 version: 2.1
 
+executors:
+  build-executor:
+    docker:
+      - image: gradle:7.0.1-jdk11
+
 jobs:
   test:
-    machine:
-      image: ubuntu-2004:2023.02.1
+    executor: build-executor
     steps:
       - checkout
-      - run: ls -ltrh
       - run: gradle clean test
-
 
 workflows:
   build-deploy:
