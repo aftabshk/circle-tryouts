@@ -11,18 +11,17 @@ jobs:
     steps:
       - run:
           command: |
-            echo 'export USER=user1' >> "$BASH_ENV"
-            echo 'export NAME=AFTAB' >> ~/.bashrc
-            export ADMIN=aftab
-            echo "Admin is" "$ADMIN"
+            pwd
+            touch env_vars          
+            echo 'export USER=user1' >> ./env_vars
+            echo 'export NAME=AFTAB' >> ./env_vars
+            cat ./env_vars >> "$BASH_ENV"
             source "$BASH_ENV"
-            source ~/.bashrc
-            echo "User is" "$USER"
-            echo "Name is" "$NAME"
       - run:
           command: |
+            pwd
+            cat ./env_vars
             echo "User is" "$USER"
-            echo "Admin is" "$ADMIN"
             echo "Name is" "$NAME"
 
   use-env:
@@ -30,8 +29,9 @@ jobs:
     steps:
       - run:
           command: |
+            pwd
+            cat ./env_vars
             echo "User is" "$USER"
-            echo "Admin is" "$ADMIN"
             echo "Name is" "$NAME"
 
   test:
