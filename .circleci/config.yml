@@ -2,8 +2,6 @@ version: 2.1
 
 jobs:
   test:
-    docker:
-      - image: gradle:7.0.1-jdk11
     steps:
       - checkout
       - run: ls -ltrh
