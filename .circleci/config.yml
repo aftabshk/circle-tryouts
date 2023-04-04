@@ -13,6 +13,7 @@ jobs:
       - run:
           command: |
             echo 'export ENVIRONMENT="$ENV"' >> $BASH_ENV
+            source $BASH_ENV
           environment:
             ENV: dev
       - run:
