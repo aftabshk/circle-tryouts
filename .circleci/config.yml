@@ -12,7 +12,7 @@ jobs:
     steps:
       - run:
           command: |
-            echo 'export ENV=dev' >> "$BASH_ENV"
+            export ENV=dev
             echo 'export ENVIRONMENT="$ENV"' >> "$BASH_ENV"
             echo "export NEW_ENVIRONMENT='""${NEW_ENV}'" >> "$BASH_ENV"
             cat $BASH_ENV
