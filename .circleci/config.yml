@@ -12,40 +12,12 @@ jobs:
     steps:
       - run:
           command: |
-            pwd
-            mkdir envs
-            echo "$USER"
-            touch ./envs/env_vars          
-            echo 'export CU_USER=user1' >> ./envs/env_vars
-            echo 'export NAME=AFTAB' >> ./envs/env_vars
-            cat ./envs/env_vars >> "$BASH_ENV"
-            source "$BASH_ENV"
+            echo 'export ENVIRONMENT="$ENV"' >> $BASH_ENV
+          environment:
+            ENV: dev
       - run:
           command: |
-            pwd
-            cat ./envs/env_vars
-            echo "User is" "$CU_USER"
-            echo "Name is" "$NAME"
-      - persist_to_workspace:
-          root: envs
-          paths:
-            - env_vars
-
-  use-env:
-    executor: build-executor
-    steps:
-      - attach_workspace:
-          at: ./envs
-      - run:
-          command: |
-            pwd
-            echo "$USER"
-            ls -R
-            cat ./envs/env_vars
-            cat ./envs/env_vars >> "$BASH_ENV"
-            source "$BASH_ENV"
-            echo "User is" "$CU_USER"
-            echo "Name is" "$NAME"
+            echo $ENVIRONMENT
 
   test:
     executor: build-executor
@@ -61,7 +33,4 @@ workflows:
   build-deploy:
     jobs:
       - set-env
-      - use-env:
-          requires:
-            - set-env
       - test
