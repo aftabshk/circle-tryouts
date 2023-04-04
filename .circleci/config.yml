@@ -12,19 +12,18 @@ jobs:
     steps:
       - run:
           command: |
-            export ENV=dev
-            echo $ENV
-            echo 'export ENVIRONMENT="$ENV"' >> "$BASH_ENV"
-            echo "export NEW_ENVIRONMENT='""${NEW_ENV}'" >> "$BASH_ENV"
-            cat $BASH_ENV
+            echo "export ENVIRONMENT='""${ENVIRONMENT}'" >> $BASH_ENV
+            echo "export SECRET_NAME='""${SECRET_NAME}'" >> $BASH_ENV
+            echo "export SECRET_VERSION='""${!SECRET_VERSION}'" >> $BASH_ENV
           environment:
-            ENV: dev
-            NEW_ENV: prod
+            ENVIRONMENT: dev
+            SECRET_NAME: "dev_api"
+            SECRET_VERSION: DEV_SECRET_VERSION
       - run:
           command: |
-            echo $ENV
             echo $ENVIRONMENT
-            echo $NEW_ENVIRONMENT
+            echo $SECRET_NAME
+            echo $SECRET_VERSION
 
   test:
     executor: build-executor
