@@ -12,13 +12,17 @@ jobs:
     steps:
       - run:
           command: |
-            echo 'export ENVIRONMENT=prod' >> "$BASH_ENV"
+            echo 'export ENV=dev' >> "$BASH_ENV"
+            echo 'export ENVIRONMENT="$ENV"' >> "$BASH_ENV"
+            echo "export NEW_ENVIRONMENT='""${NEW_ENV}'" >> "$BASH_ENV"
             cat $BASH_ENV
           environment:
             ENV: dev
+            NEW_ENV: prod
       - run:
           command: |
             echo $ENVIRONMENT
+            echo $NEW_ENVIRONMENT
 
   test:
     executor: build-executor
